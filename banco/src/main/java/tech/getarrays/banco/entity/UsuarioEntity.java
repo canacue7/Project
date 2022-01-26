@@ -1,10 +1,11 @@
-package tech.getarrays.banco.model;
+package tech.getarrays.banco.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-public class Usuario implements Serializable {
+public class UsuarioEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -13,36 +14,30 @@ public class Usuario implements Serializable {
     private String tipoId;
     private Integer identificacion;
     private String name;
+    private String apellido;
     private String email;
-    private String fecha_nac;
+    @Temporal(TemporalType.DATE)
+    private Date fecha_nac;
     private String fecha_crea;
-    private String estado;
-    private String tipo_cuenta;
-    public Integer num_cuenta;
-    private String fecha_apertura;
-    private Integer saldo;
-    private Integer transfe;
+    private Boolean estado;
     @Column(nullable = false, updatable = false)
     private String usuario_codigo;
 
-    public Usuario() {
+    public UsuarioEntity() {
     }
 
-    public Usuario(Long id, String tipoId, Integer identificacion, String name, String email, String fecha_nac, String fecha_crea, String estado, String tipo_cuenta, Integer num_cuenta, String fecha_apertura, Integer saldo, Integer transfe, String usuario_codigo) {
+    public UsuarioEntity(Long id, String tipoId, Integer identificacion, String name, String apellido,
+                         String email, Date fecha_nac, String fecha_crea, Boolean estado, String usuario_codigo) {
         this.id = id;
         this.tipoId = tipoId;
         this.identificacion = identificacion;
         this.name = name;
+        this.apellido = apellido;
         this.email = email;
         this.fecha_nac = fecha_nac;
         this.fecha_crea = fecha_crea;
         this.estado = estado;
-        this.tipo_cuenta = tipo_cuenta;
-        this.num_cuenta = num_cuenta;
-        this.fecha_apertura = fecha_apertura;
-        this.saldo = saldo;
         this.usuario_codigo = usuario_codigo;
-        this.transfe = transfe;
     }
 
     public Long getId() {
@@ -51,6 +46,14 @@ public class Usuario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getTipoId() {
@@ -85,11 +88,11 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getFecha_nac() {
+    public Date getFecha_nac() {
         return fecha_nac;
     }
 
-    public void setFecha_nac(String fecha_nac) {
+    public void setFecha_nac(Date fecha_nac) {
         this.fecha_nac = fecha_nac;
     }
 
@@ -101,52 +104,12 @@ public class Usuario implements Serializable {
         this.fecha_crea = fecha_crea;
     }
 
-    public String getEstado() {
+    public Boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Boolean estado) {
         this.estado = estado;
-    }
-
-    public String getTipo_cuenta() {
-        return tipo_cuenta;
-    }
-
-    public void setTipo_cuenta(String tipo_cuenta) {
-        this.tipo_cuenta = tipo_cuenta;
-    }
-
-    public Integer getNum_cuenta() {
-        return num_cuenta;
-    }
-
-    public void setNum_cuenta(Integer num_cuenta) {
-        this.num_cuenta = num_cuenta;
-    }
-
-    public String getFecha_apertura() {
-        return fecha_apertura;
-    }
-
-    public void setFecha_apertura(String fecha_apertura) {
-        this.fecha_apertura = fecha_apertura;
-    }
-
-    public Integer getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(Integer saldo) {
-        this.saldo = saldo;
-    }
-
-    public Integer getTransfe() {
-        return transfe;
-    }
-
-    public void setTransfe(Integer transfe) {
-        this.transfe = transfe;
     }
 
     public String getUsuario_codigo() {
