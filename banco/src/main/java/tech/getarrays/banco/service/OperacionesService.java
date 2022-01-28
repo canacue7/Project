@@ -13,9 +13,9 @@ import java.util.List;
 @Transactional
 public interface OperacionesService {
 
-    public OperacionesEntity addOperaciones(OperacionesEntity operaciones);
+    public OperacionesEntity addOperaciones(OperacionesEntity operaciones) throws Exception;
 
-   public List<OperacionesEntity> findOpsByCuentaId (Long id);
+   public List<OperacionesEntity> findOpsByCuentaId (Long id) throws Exception;
 
 
 

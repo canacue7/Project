@@ -26,9 +26,30 @@ public class UsuarioController {
     }
 // get all users
     @GetMapping("")
-    public ResponseEntity<List<UsuarioEntity>> getAllUsuarios () {
+    /*public ResponseEntity<List<UsuarioEntity>> getAllUsuarios () {
         List<UsuarioEntity> usuarios = usuarioService.findAllUsuarios();
         return new ResponseEntity<>(usuarios, HttpStatus.OK);
+    }*/
+    public ResponseEntity<Respuesta> getAllUsuarios () {
+        Respuesta<List> output = new Respuesta<>();
+        HttpStatus status=null;
+        String msg=null;
+        List usuarios=null;
+        try {
+            usuarios = usuarioService.findAllUsuarios();
+            msg="0-Successful operation";
+            output.setDato(usuarios);
+            output.setMessa(msg);
+            output.setDone(true);
+            status=HttpStatus.OK;
+
+        }catch(Exception e){
+            msg="1 error";
+            output.setMessa(msg);
+            output.setDone(false);
+            status=HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<Respuesta>(output, status);
     }
 // get user by id
     @GetMapping("/{id}")
@@ -39,6 +60,7 @@ public class UsuarioController {
         UsuarioEntity datos =null;
         try{
             datos = usuarioService.findUsuarioById(id);
+            System.out.println(id);
             msg="0- all accounts found";
             output.setDato(datos);
             output.setMessa(msg);
@@ -49,6 +71,7 @@ public class UsuarioController {
             output.setMessa(msg);
             output.setDone(false);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
+            System.out.print(e);
         }
         return new ResponseEntity<>(output, status);
     }
@@ -102,24 +125,43 @@ public class UsuarioController {
     }
 
 // delete user
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUsuario(@PathVariable("id") Long id){
-        List<CuentaEntity> cuentas = cuentaService.findCuentabyIdUsuario(id);
-        Integer Count=0;
-        for(int i=0; i<cuentas.size(); i++){
-
-            if(cuentas.get(i).getEstado().toLowerCase(Locale.ROOT).equals("activo")){
+@DeleteMapping("/delete/{id}")
+public ResponseEntity<Respuesta> deleteUsuario(@PathVariable("id") Long id){
+    Respuesta<List> output = new Respuesta<>();
+    HttpStatus status = HttpStatus.OK;
+    String msg = null;
+    List<CuentaEntity> cuentas = null;
+    try {
+        cuentas = cuentaService.findCuentabyIdUsuario(id);
+        Integer Count = 0;
+        System.out.println(cuentas);
+        for (int i = 0; i < cuentas.size(); i++) {
+            if (cuentas.get(i).getEstado().toLowerCase(Locale.ROOT).equals("true")) {
                 Count++;
             }
         }
-        if(Count>0){
-            return new ResponseEntity<>("No se pudo porque tiene cuentas activas", HttpStatus.BAD_REQUEST);
-        }else{
+        System.out.println(Count);
+        if (Count > 0) {
+            msg=" 1- Not possible to delte, user has accounts ";
+            output.setMessa(msg);
+            output.setDone(false);
+            status= HttpStatus.OK;
+        } else {
             usuarioService.deleteUsuario(id);
+            msg=" 0- Deleted account ";
+            output.setMessa(msg);
+            output.setDone(true);
+            status= HttpStatus.OK;
 
-            return new ResponseEntity<>(cuentas,HttpStatus.OK);
         }
+    }catch (Exception e){
+        msg=" 0- Error, contact support ";
+        output.setMessa(msg);
+        output.setDone(true);
+        status= HttpStatus.OK;
     }
+    return new ResponseEntity<Respuesta>(output, status);
+}
 
     /*@DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUsuario(@PathVariable("id") Long id){

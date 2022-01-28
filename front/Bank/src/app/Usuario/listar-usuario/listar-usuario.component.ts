@@ -17,7 +17,20 @@ export class ListarUsuarioComponent implements OnInit {
   constructor(private usuarioService: UsuarioService, private router:Router) { }
 
   ngOnInit(): void {
-    this.usuarioService.getUsuarios().subscribe(data=>{this.usuarios=data})
+    this.usuarioService.getUsuarios().subscribe(resp=>{
+      console.log(resp.messa);
+      if(resp.done){
+        this.usuarios=resp.dato;
+        console.log(resp.dato);
+      }/*else{
+        this.usuarios=resp.messa
+        console.log(resp.messa);
+        alert(resp.messa);
+      }*/
+      },err=>{
+        console.log(err.error.messa);
+        alert(err.error.messa);
+    })
   }
 
   Editar(userId:number){
@@ -25,8 +38,14 @@ export class ListarUsuarioComponent implements OnInit {
   }
 
   Delete(usuario:Usuario){
-    this.usuarioService.deleteUsuario(usuario.id).subscribe(data=>{this.usuarios.filter(p=>p!==usuario);
-    alert("Usuario eliminado");}, error=>alert("User has active accounts"))
+    // this.usuarioService.deleteUsuario(usuario.id).subscribe(data=>{this.usuarios.filter(p=>p!==usuario);
+    // alert("Usuario eliminado");}, error=>alert("User has active accounts"))
+    this.usuarioService.deleteUsuario(usuario.id).subscribe(data=>{
+      alert(data.messa);
+    },err=>{
+      console.log(err.error.messa);
+      alert(err.error.messa);
+  })
   }
 
   Cuentas(userId:number){

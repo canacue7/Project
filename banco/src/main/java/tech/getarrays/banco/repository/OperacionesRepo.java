@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface OperacionesRepo extends JpaRepository<OperacionesEntity, Long> {
 
-    @Query(value="select * from operaciones where (id_cuenta=?)", nativeQuery = true)
+    @Query(value="select * from operaciones_entity where (id_cuenta=?)", nativeQuery = true)
     List<OperacionesEntity> findOpsByIdCuenta(Long idCuenta);
 }

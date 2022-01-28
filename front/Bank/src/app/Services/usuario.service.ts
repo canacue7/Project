@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Usuario } from '../Models/Usuario';
+import { Respuesta } from '../Shared/Respuesta';
 
 
 @Injectable({
@@ -13,20 +14,20 @@ export class UsuarioService {
 
   constructor(private http: HttpClient){}
 
-  public getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiServerUrl}/usuario/all`); 
+  public getUsuarios(): Observable<Respuesta<Usuario[]>> {
+    return this.http.get<Respuesta<Usuario[]>>(`${this.apiServerUrl}/usuario`); 
   }
-  public getUsuarioById(usuarioId: number): Observable<Usuario>{
-    return this.http.get<Usuario>(`${this.apiServerUrl}/usuario/find/${usuarioId}`); 
+  public getUsuarioById(usuarioId: number): Observable<Respuesta<Usuario>>{
+    return this.http.get<Respuesta<Usuario>>(`${this.apiServerUrl}/usuario/${usuarioId}`); 
   }
-  public addUsuario(usuario: Usuario): Observable<Usuario> {
+  public addUsuario(usuario: Usuario): Observable<Respuesta<Usuario>> {
     console.log(usuario);
-    return this.http.post<Usuario>(`${this.apiServerUrl}/usuario/add`, usuario);
+    return this.http.post<Respuesta<Usuario>>(`${this.apiServerUrl}/usuario`, usuario);
   }
   public updateUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiServerUrl}/usuario/update`, usuario);
   }
-  public deleteUsuario(usuarioId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/usuario/delete/${usuarioId}`);
+  public deleteUsuario(usuarioId: number): Observable<Respuesta<number>> {
+    return this.http.delete<Respuesta<number>>(`${this.apiServerUrl}/usuario/delete/${usuarioId}`);
   }
 }

@@ -1,3 +1,5 @@
+import { ListarUsuarioComponent } from "../Usuario/listar-usuario/listar-usuario.component";
+
 export interface Usuario{
     id: number;
     tipoId: String;

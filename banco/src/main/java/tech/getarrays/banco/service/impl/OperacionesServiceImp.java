@@ -19,11 +19,11 @@ public class OperacionesServiceImp implements OperacionesService {
     @Autowired
     public OperacionesServiceImp(OperacionesRepo operacionesRepo){this.operacionesRepo= operacionesRepo; }
 
-    public OperacionesEntity addOperaciones(OperacionesEntity operaciones){
+    public OperacionesEntity addOperaciones(OperacionesEntity operaciones) throws Exception{
         return operacionesRepo.save(operaciones);
     }
 
-    public List<OperacionesEntity> findOpsByCuentaId (Long id){
+    public List<OperacionesEntity> findOpsByCuentaId (Long id) throws Exception{
         return operacionesRepo.findOpsByIdCuenta(id);
     }
 

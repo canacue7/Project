@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.getarrays.banco.Model.Respuesta;
 import tech.getarrays.banco.entity.CuentaEntity;
+import tech.getarrays.banco.entity.UsuarioEntity;
 import tech.getarrays.banco.service.CuentaService;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -22,13 +24,34 @@ public class CuentaController {
     }
 
 
-    @GetMapping("")
-    /*public ResponseEntity<List<CuentaEntity>> getAllCuentas (@PathParam("idUsuario")Long idUsuario) {
-        List<CuentaEntity> cuentas = cuentaService.findCuentabyIdUsuario(idUsuario);
-        return new ResponseEntity<>(cuentas, HttpStatus.OK);*/
-    public ResponseEntity<List<CuentaEntity>> getAllCuentas () {
+    @GetMapping("/usuario/{idUsuario}/cuentas")
+    //public ResponseEntity<List<CuentaEntity>> getAllCuentas (@PathParam("idUsuario")Long idUsuario) {
+    public ResponseEntity<Respuesta> getAllCuentas (@PathVariable("idUsuario")Long idUsuario) {
+        Respuesta<List> output = new Respuesta<>();
+        HttpStatus status=null;
+        String msg=null;
+        List cuentas=null;
+        try {
+            cuentas = cuentaService.findCuentabyIdUsuario(idUsuario);
+            System.out.println(idUsuario);
+            msg="0-Successful operation";
+            output.setDato(cuentas);
+            output.setMessa(msg);
+            output.setDone(true);
+            status=HttpStatus.OK;
+
+        }catch(Exception e){
+            msg="1 error";
+            output.setMessa(msg);
+            output.setDone(false);
+            status=HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<Respuesta>(output, status);
+    /*public ResponseEntity<List<CuentaEntity>> getAllCuentas () {
         List<CuentaEntity> cuentas = cuentaService.findAllCuentas();
-        return new ResponseEntity<>(cuentas, HttpStatus.OK);
+        return new ResponseEntity<>(cuentas, HttpStatus.OK);*/
+        //localhost8080/usuario/1/cuenta
+        //localhost8080/cuenta/1
     }
 // get account by id account
     @GetMapping("/{id}")
@@ -38,14 +61,23 @@ public class CuentaController {
         String msg = null;
         CuentaEntity datos =null;
         try {
+
             datos = cuentaService.findCuentabyId(id);
-            msg="0- all accounts found";
-            output.setDato(datos);
-            output.setMessa(msg);
-            output.setDone(true);
             status = HttpStatus.OK;
+            output.setDato(datos);
+            output.setDone(true);
+            if (datos!=null){
+            msg="0- all accounts found";
+
+
+
+            }else{
+                msg="1- account not found";
+            }
+            output.setMessa(msg);
+
         }catch (Exception e){
-            msg=" Account not found ";
+            msg="2- Account not found ";
             output.setMessa(msg);
             output.setDone(false);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -54,10 +86,27 @@ public class CuentaController {
     }
 //add account
     @PostMapping("/{idUsuario}")
-    public ResponseEntity<CuentaEntity> addCuenta(@RequestBody CuentaEntity cuenta, @PathVariable("idUsuario")Long idUsuario){
+    public ResponseEntity<Respuesta> addCuenta(@RequestBody CuentaEntity cuenta, @PathVariable("idUsuario")Long idUsuario){
         cuenta.setId_usuario(idUsuario);
-        CuentaEntity newCuenta = cuentaService.addCuenta(cuenta) ;
-        return new ResponseEntity<>(newCuenta, HttpStatus.CREATED);
+        Respuesta<CuentaEntity> output = new Respuesta<>();
+        HttpStatus status = null;
+        String msg = null;
+        CuentaEntity datos =null;
+        try{
+            datos = cuentaService.addCuenta(cuenta) ;
+            msg="0- Account succersfully posted";
+            output.setDato(datos);
+            output.setMessa(msg);
+            output.setDone(true);
+            status = HttpStatus.OK;
+        }catch(Exception e){
+            msg=" 1-Error ";
+            output.setMessa(msg);
+            output.setDone(false);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            System.out.print(e);
+        }
+        return new ResponseEntity<>(output, status);
     }
 
     @DeleteMapping("/delete/{id}")

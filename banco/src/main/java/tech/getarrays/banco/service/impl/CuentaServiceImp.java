@@ -22,7 +22,7 @@ public class CuentaServiceImp implements CuentaService {
         return cuentaRepo.findAll();
     }
 
-    public List<CuentaEntity> findCuentabyIdUsuario(Long id){return cuentaRepo.findCuentaByIdUsuario(id);}
+    public List<CuentaEntity> findCuentabyIdUsuario(Long id) throws Exception{return cuentaRepo.findCuentaByIdUsuario(id);}
 
 
     public CuentaEntity addCuenta (CuentaEntity cuenta){
@@ -31,9 +31,9 @@ public class CuentaServiceImp implements CuentaService {
 
     public CuentaEntity updateCuenta (CuentaEntity cuenta) {return cuentaRepo.save(cuenta);}
 
-    public CuentaEntity findCuentabyId (Long id) throws Exception {return  cuentaRepo.getCuentaById(id);}
+    public CuentaEntity findCuentabyId (Long id) throws Exception {return  cuentaRepo.findCuentaById(id);}
 
-    public void deleteCuenta(Long id){cuentaRepo.deleteCuentaById(id); }
+    public void deleteCuenta(Long id) throws Exception{cuentaRepo.deleteCuentaById(id); }
 
     /*public void deleteCuenta (Long num_cuenta) {
         cuentaRepo.deleteCuentaoById(num_cuenta);

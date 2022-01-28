@@ -3,6 +3,7 @@ package tech.getarrays.banco.Model;
 public class Respuesta<T> {
 
     private T dato;
+    private T datoDesti;
     private boolean done;
     private String messa;
 
@@ -28,5 +29,13 @@ public class Respuesta<T> {
 
     public void setMessa(String messa) {
         this.messa = messa;
+    }
+
+    public T getDatoDesti() {
+        return datoDesti;
+    }
+
+    public void setDatoDesti(T datoDesti) {
+        this.datoDesti = datoDesti;
     }
 }

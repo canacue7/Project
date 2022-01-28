@@ -15,7 +15,7 @@ public interface CuentaService {
 
     public List<CuentaEntity> findAllCuentas();
 
-    public List<CuentaEntity> findCuentabyIdUsuario(Long id);
+    public List<CuentaEntity> findCuentabyIdUsuario(Long id) throws Exception;
 
 
     public CuentaEntity addCuenta (CuentaEntity cuenta);
@@ -24,7 +24,7 @@ public interface CuentaService {
 
     public CuentaEntity findCuentabyId (Long id) throws Exception;
 
-    public void deleteCuenta(Long id);
+    public void deleteCuenta(Long id) throws Exception;
 
 
 }

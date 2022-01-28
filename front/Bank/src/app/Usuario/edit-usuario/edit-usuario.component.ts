@@ -21,7 +21,10 @@ export class EditUsuarioComponent implements OnInit {
     // this.service.getUsuarioById(+id).subscribe(data=>{this.usuarios=data})
     const userId = this.route.snapshot.paramMap.get('id'); 
     console.log(userId)
-    this.usuarioService.getUsuarioById(+userId).subscribe(data=>{this.usuario=data})
+    this.usuarioService.getUsuarioById(+userId).subscribe(data=>{
+      this.usuario=data.dato},err=>{
+        alert(err.console.error.messa);
+      })
   }
 
   Actualizar(usuario:Usuario){

@@ -18,7 +18,9 @@ export class ListarCuentaComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id'); 
     console.log(userId)
-    this.cuentaService.getallCuentas(+userId).subscribe(data=>{this.cuentas=data})
+    this.cuentaService.getallCuentas(+userId).subscribe(data=>{
+      console.log(data.done);
+      this.cuentas=data.dato})
   }
 
   Operaciones(accountId:number){
