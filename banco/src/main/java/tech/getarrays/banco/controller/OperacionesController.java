@@ -132,12 +132,12 @@ public class OperacionesController implements Serializable {
 
             } else {
                 if (cuenta.getTipo_cuenta().toLowerCase(Locale.ROOT).equals("ahorros")) {
-                    msg="2- No hay fondos suficientes";
+                    msg="2- Not enough funds";
                     output.setMessa(msg);
                     output.setDone(false);
                     status=HttpStatus.OK;
                 } else if (cuenta.getTipo_cuenta().toLowerCase(Locale.ROOT).equals("corriente")) {
-                    msg="2- No hay fondos suficientes (NO SE PUEDE SOBREGIRAR MAYOUR A 2000000)";
+                    msg="2- Not enough funds (not possible to overdraw more than 2000000)";
                     output.setMessa(msg);
                     output.setDone(false);
                     status=HttpStatus.OK;
@@ -171,7 +171,7 @@ public class OperacionesController implements Serializable {
             CuentaEntity cuentaFuente = cuentaService.findCuentabyId(idCuentaFuente);
             CuentaEntity cuentaDestino= cuentaService.findCuentabyId(idCuentaDestino);
             if (((cuentaFuente.getTipo_cuenta().toLowerCase(Locale.ROOT).equals("ahorros")) && ((cuentaFuente.getSaldo() - operacionesFuente.getMonto()) >= 0)) ||
-                    ((cuentaFuente.getTipo_cuenta().toLowerCase(Locale.ROOT).equals("corriente")) && ((cuentaFuente.getSaldo() - operacionesFuente.getMonto()) > -2000000))) {
+                    ((cuentaFuente.getTipo_cuenta().toLowerCase(Locale.ROOT).equals("corriente")) && ((cuentaFuente.getSaldo() - operacionesFuente.getMonto()) >= -2000000))) {
                 operacionesFuente.setSaldo_in(cuentaFuente.getSaldo());
                 cuentaFuente.setSaldo(cuentaFuente.getSaldo() - operacionesFuente.getMonto());
                 operacionesFuente.setSaldo_fin(cuentaFuente.getSaldo());
@@ -202,12 +202,12 @@ public class OperacionesController implements Serializable {
                 status=HttpStatus.OK;
             } else {
                 if (cuentaFuente.getTipo_cuenta().toLowerCase(Locale.ROOT).equals("ahorros")) {
-                    msg="2-No hay fondos suficientes";
+                    msg="2-Not enough funds";
                     output.setMessa(msg);
                     output.setDone(false);
                     status=HttpStatus.OK;
                 } else if (cuentaFuente.getTipo_cuenta().toLowerCase(Locale.ROOT).equals("corriente")) {
-                    msg="2-No hay fondos suficientes ( no puede haber sobregiro mayor a $2000000";
+                    msg="2-Not enough funds (not possible to overdraw more than 2000000)";
                     output.setMessa(msg);
                     output.setDone(false);
                     status=HttpStatus.OK;

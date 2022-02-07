@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Bank';
 
-  constructor(private router:Router){}
+  //constructor(private router:Router){}
 
-  Listar(){
-  //  this.router.navigate(["listar"]);
-  }
+  // Listar(){
+  // //  this.router.navigate(["listar"]);
+  // }
 
-  Nuevo(){
-   // this.router.navigate(["add"]);
-  }
+  // Nuevo(){
+  //  // this.router.navigate(["add"]);
+  // }
 }

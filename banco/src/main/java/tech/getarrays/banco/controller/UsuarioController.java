@@ -87,6 +87,7 @@ public class UsuarioController {
         UsuarioEntity datos =null;
         try{
             datos = usuarioService.addUsuario(usuario);
+            datos.setFecha_crea(new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
             msg ="0- user posted";
             output.setDato(datos);
             output.setMessa(msg);
@@ -103,7 +104,7 @@ public class UsuarioController {
 //update user
     @PutMapping("/update")
     public ResponseEntity<Respuesta> updateUsuario(@RequestBody UsuarioEntity usuario){
-        UsuarioEntity updateUsuario = usuarioService.updateUsuario(usuario);
+        //UsuarioEntity updateUsuario = usuarioService.updateUsuario(usuario);
         Respuesta<UsuarioEntity> output = new Respuesta<>();
         HttpStatus status = null;
         String msg = null;
@@ -136,13 +137,13 @@ public ResponseEntity<Respuesta> deleteUsuario(@PathVariable("id") Long id){
         Integer Count = 0;
         System.out.println(cuentas);
         for (int i = 0; i < cuentas.size(); i++) {
-            if (cuentas.get(i).getEstado().toLowerCase(Locale.ROOT).equals("true")) {
+            if (cuentas.get(i).getEstado().toLowerCase(Locale.ROOT).equals("activo")) {
                 Count++;
             }
         }
         System.out.println(Count);
         if (Count > 0) {
-            msg=" 1- Not possible to delte, user has accounts ";
+            msg=" 1- Not possible to delete, user has accounts ";
             output.setMessa(msg);
             output.setDone(false);
             status= HttpStatus.OK;
@@ -157,8 +158,8 @@ public ResponseEntity<Respuesta> deleteUsuario(@PathVariable("id") Long id){
     }catch (Exception e){
         msg=" 0- Error, contact support ";
         output.setMessa(msg);
-        output.setDone(true);
-        status= HttpStatus.OK;
+        output.setDone(false);
+        status= HttpStatus.INTERNAL_SERVER_ERROR;
     }
     return new ResponseEntity<Respuesta>(output, status);
 }

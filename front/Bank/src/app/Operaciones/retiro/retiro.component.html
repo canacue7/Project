@@ -1,1 +1,17 @@
-<p>retiro works!</p>
+<div class="container col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <h3>Withdraw</h3>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="profileForm" > 
+                
+                <div class="form-group">
+                    <label for="">Ammount to withdraw</label>
+                    <input formControlName="monto" type="text" class="form-control">
+                </div>
+                <button (click)="retirar()" class="btn btn-info">Withdraw</button>
+            </form>
+        </div>
+    </div>
+</div>

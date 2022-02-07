@@ -25,12 +25,12 @@
                         <td>{{cuenta.saldo}}</td>
                         <td>{{cuenta.id_usuario}}</td>
                         <td>
-                            <button  class="btn btn-warning">Edit</button>
-                            <button  class="btn btn-danger" style="margin: 10px;">Delete</button>
+                            <button (click)="inactive(cuenta, cuenta.id)" class="btn btn-warning">activate/Inactivate</button>
+                            <button (click)="Delete(cuenta)" class="btn btn-danger" style="margin: 10px;">Delete</button>
                             <button (click)="Operaciones(cuenta.id)" class="btn btn-primary" style="margin: 10px;">Operations</button>
-                            <button (click)="Retirar(cuenta.id) " class="btn btn-dark" style="margin-left: 150px;">Withdraw</button>
-                            <button  class="btn btn-dark" style="margin: 10px;">Deposit</button>
-                            <button  class="btn btn-dark" style="margin: 10px;">Transfer</button>
+                            <button (click)="Retirar(cuenta.id) " class="btn btn-dark"  style="margin-left: 150px;">Withdraw</button>
+                            <button (click)="Consignar(cuenta.id)" class="btn btn-dark" style="margin: 10px;">Deposit</button>
+                            <button (click)='Transfer(cuenta.id)' class="btn btn-dark" style="margin: 10px;">Transfer</button>
 
                         </td>
                     </tr>

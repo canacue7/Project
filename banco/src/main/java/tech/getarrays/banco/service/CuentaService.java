@@ -20,7 +20,7 @@ public interface CuentaService {
 
     public CuentaEntity addCuenta (CuentaEntity cuenta);
 
-    public CuentaEntity updateCuenta (CuentaEntity cuenta);
+    public CuentaEntity updateCuenta (CuentaEntity cuenta) throws Exception;
 
     public CuentaEntity findCuentabyId (Long id) throws Exception;
 

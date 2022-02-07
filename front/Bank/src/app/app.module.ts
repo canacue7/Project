@@ -10,12 +10,18 @@ import { EditUsuarioComponent } from './Usuario/edit-usuario/edit-usuario.compon
 import { AddCuentaComponent } from './Cuenta/add-cuenta/add-cuenta.component';
 import { ListarCuentaComponent } from './Cuenta/listar-cuenta/listar-cuenta.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UsuarioService } from './Services/usuario.service';
-import { HttpClientModule } from '@angular/common/http';
+import { UsuarioService } from './Usuario/Services/usuario.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListarOperacionesComponent } from './Operaciones/listar-operaciones/listar-operaciones.component';
 import { ConsignacionComponent } from './Operaciones/consignacion/consignacion.component';
 import { RetiroComponent } from './Operaciones/retiro/retiro.component';
 import { TransferenciaComponent } from './Operaciones/transferencia/transferencia.component';
+import { EditCuentaComponent } from './Cuenta/edit-cuenta/edit-cuenta.component';
+import { LoginComponent } from './Core/login/login.component';
+import { HeaderComponent } from './Core/header/header.component';
+import { HttpConfigInterceptor } from './Core/HttpConfigInterceptor';
+import { RegistrarComponent } from './user/registrar/registrar.component';
+import { EditarComponent } from './user/editar/editar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +35,12 @@ import { TransferenciaComponent } from './Operaciones/transferencia/transferenci
     ListarOperacionesComponent,
     ConsignacionComponent,
     RetiroComponent,
-    TransferenciaComponent
+    TransferenciaComponent,
+    EditCuentaComponent,
+    LoginComponent,
+    HeaderComponent,
+    RegistrarComponent,
+    EditarComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +49,8 @@ import { TransferenciaComponent } from './Operaciones/transferencia/transferenci
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [UsuarioService],
+  providers: [{provide: HTTP_INTERCEPTORS,useClass: HttpConfigInterceptor, multi:true}],
+  //providers: [UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

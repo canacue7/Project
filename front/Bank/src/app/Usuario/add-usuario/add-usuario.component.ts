@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/Models/Usuario';
-import { UsuarioService } from 'src/app/Services/usuario.service';
+import { Usuario } from 'src/app/Usuario/Models/Usuario';
+import { UsuarioService } from 'src/app/Usuario/Services/usuario.service';
 
 @Component({
   selector: 'app-add-usuario',
@@ -26,7 +26,7 @@ export class AddUsuarioComponent implements OnInit {
 
   Guardar(){
     const usuario= this.profileForm.value
-    this.service.addUsuario(usuario).subscribe(data=>{alert("Se Agregó con exito");
+    this.service.addUsuario(usuario).subscribe(data=>{alert(data.messa);
     this.router.navigate(["listar"]);
   })
   }

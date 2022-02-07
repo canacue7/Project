@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Usuario } from '../Models/Usuario';
-import { Respuesta } from '../Shared/Respuesta';
+import { Respuesta } from '../../Shared/Respuesta';
 
 
 @Injectable({
@@ -24,8 +24,8 @@ export class UsuarioService {
     console.log(usuario);
     return this.http.post<Respuesta<Usuario>>(`${this.apiServerUrl}/usuario`, usuario);
   }
-  public updateUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiServerUrl}/usuario/update`, usuario);
+  public updateUsuario(usuario: Usuario): Observable<Respuesta<Usuario>> {
+    return this.http.put<Respuesta<Usuario>>(`${this.apiServerUrl}/usuario/update`, usuario);
   }
   public deleteUsuario(usuarioId: number): Observable<Respuesta<number>> {
     return this.http.delete<Respuesta<number>>(`${this.apiServerUrl}/usuario/delete/${usuarioId}`);

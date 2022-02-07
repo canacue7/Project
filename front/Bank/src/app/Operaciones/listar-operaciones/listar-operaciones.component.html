@@ -9,6 +9,7 @@
                     <tr>
                         <th>ID</th>
                         <th>TRANSACTION DATE</th>
+                        <th>OPERATION TYPE</th>
                         <th>INICIAL BALANCE</th>
                         <th>FINAL BALANCE</th>
                         <th>AMMOUNT</th>
@@ -21,6 +22,7 @@
                     
                     <tr *ngFor="let operaciones of ops" class="text-center">
                         <td>{{operaciones.id}}</td>
+                        <td>{{operaciones.fecha_transfer}}</td>
                         <td>{{operaciones.tipo_transfer}}</td>
                         <td>{{operaciones.saldo_in}}</td>
                         <td>{{operaciones.saldo_fin}}</td>

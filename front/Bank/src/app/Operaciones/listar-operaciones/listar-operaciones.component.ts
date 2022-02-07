@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Operaciones } from 'src/app/Models/Operaciones';
-import { OperacionesService } from 'src/app/Services/operaciones.service';
+import { Operaciones } from 'src/app/Operaciones/Models/Operaciones';
+import { OperacionesService } from 'src/app/Operaciones/Services/operaciones.service';
 
 @Component({
   selector: 'app-listar-operaciones',
@@ -16,7 +16,7 @@ export class ListarOperacionesComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id'); 
     console.log(userId)
-    this.operacionesService.getAllOps(+userId).subscribe(data=>{this.ops=data})
+    this.operacionesService.getAllOps(+userId).subscribe(data=>{this.ops=data.dato})
   }
 
 }

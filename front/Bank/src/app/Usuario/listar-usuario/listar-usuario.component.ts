@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cuenta } from 'src/app/Models/Cuenta';
-import { Usuario } from 'src/app/Models/Usuario';
-import { UsuarioService } from 'src/app/Services/usuario.service';
+import { Cuenta } from 'src/app/Cuenta/Models/Cuenta';
+import { User } from 'src/app/user/Models/User';
+import { Usuario } from 'src/app/Usuario/Models/Usuario';
+import { UsuarioService } from 'src/app/Usuario/Services/usuario.service';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { UsuarioService } from 'src/app/Services/usuario.service';
   styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent implements OnInit {
+  user: User = new User();
+
   public usuarios?:Usuario[];
   public cuentas?:Cuenta[];
 

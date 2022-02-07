@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CuentaService } from 'src/app/Services/cuenta.service';
+import { CuentaService } from 'src/app/Cuenta/Services/cuenta.service';
 
 @Component({
   selector: 'app-add-cuenta',
@@ -23,8 +23,8 @@ export class AddCuentaComponent implements OnInit {
     const userId = this.route.snapshot.paramMap.get('id'); 
 
     const cuenta= this.profileForm.value
-    this.service.addCuenta(cuenta,+userId).subscribe(data=>{alert("Se Agregó con exito");
-    this.router.navigate(['/addCuenta', userId]);
+    this.service.addCuenta(cuenta,+userId).subscribe(data=>{alert(data.messa);
+    this.router.navigate(['/listarCuentas', userId]);
   })
   }
 

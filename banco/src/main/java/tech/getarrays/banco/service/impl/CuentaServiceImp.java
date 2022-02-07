@@ -29,7 +29,7 @@ public class CuentaServiceImp implements CuentaService {
         return cuentaRepo.save(cuenta);
     }
 
-    public CuentaEntity updateCuenta (CuentaEntity cuenta) {return cuentaRepo.save(cuenta);}
+    public CuentaEntity updateCuenta (CuentaEntity cuenta) throws Exception {return cuentaRepo.save(cuenta);}
 
     public CuentaEntity findCuentabyId (Long id) throws Exception {return  cuentaRepo.findCuentaById(id);}
 
