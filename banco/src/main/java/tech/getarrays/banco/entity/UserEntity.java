@@ -55,12 +55,12 @@ public class UserEntity {
         this.jwt = jwt;
     }
 
-    public String getFirtName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirtName(String firtName) {
-        this.firstName = firtName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {

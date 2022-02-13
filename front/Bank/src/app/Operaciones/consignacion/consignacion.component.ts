@@ -27,7 +27,7 @@ export class ConsignacionComponent implements OnInit {
     },err=>{
       alert(err.error.messa)
     });
-    this.router.navigate(["/listarCuenta",accountId]);
+    this.router.navigate(['/listarCuenta/'+accountId]);
   }
 
 }

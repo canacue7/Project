@@ -14,7 +14,7 @@ export class CuentaService {
   constructor(private http: HttpClient){}
 
   public getallCuentas(id_usuario: number): Observable<Respuesta<Cuenta[]>> {
-    return this.http.get<Respuesta<Cuenta[]>>(`${this.apiServerUrl}/cuenta/usuario/${id_usuario}/cuentas`); 
+    return this.http.get<Respuesta<Cuenta[]>>(`${this.apiServerUrl}/cuenta/cliente/${id_usuario}/cuentas`); 
   }
   public getCuentabyId(cuentaId: number): Observable<Respuesta<Cuenta>>{
     return this.http.get<Respuesta<Cuenta>>(`${this.apiServerUrl}/${cuentaId}`); 

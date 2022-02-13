@@ -1,8 +1,9 @@
-<div style="display: flex; justify-content: center;">
-    <div>
-        <h2>Inicio de sesión</h2>
+<body  class="js-fullheight" >
+<div style="display: flex; justify-content: center;" class="pt-5">
+    <div clas="mt-5 pt-5" style="margin-top: 60px;">
+        <h2>Login</h2>
     
-        <div style="margin-top: 30px;">
+        <div style="margin-top: 30px; padding-bottom: 560px;" >
             <form class="example-form" [formGroup]="form">
                 <div>
                     <input type="text" formControlName="userName" matInput placeholder="Nombre de usuario">
@@ -12,11 +13,11 @@
                     <input type="password" formControlName="password" matInput placeholder="Contraseña">
                 </div>
                 <br>
-                <button mat-raised-button color="primary" (click)="signIn()">Entrar</button>
+                <button mat-raised-button color="primary" (click)="signIn()" >Entrar</button>
                 
             </form>
-        </div>
-
-    
+        </div>    
     </div>
 </div>
+<br>
+</body>

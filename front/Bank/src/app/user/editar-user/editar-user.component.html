@@ -1,0 +1,25 @@
+<div class="container col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <h3>Edit user </h3>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="update()"> 
+                <div class="form-group">
+                    <label for="userName">User name</label>
+                    <input id="userName" name="userName"  type="text" class="form-control" [(ngModel)]="user.userName">
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First name</label>
+                    <input id="firstName" name="firstName"  type="text" class="form-control" [(ngModel)]="user.firstName">
+                </div>
+                <div class="form-group">
+                    <label for="lasName">Last name</label>
+                    <input id="lastName" name="lastName"  type="text"  class="form-control" [(ngModel)]="user.lastName">
+                </div>
+                
+                <button type="submit" class="btn btn-info">Save changes</button>
+            </form>
+        </div>
+    </div>
+</div>

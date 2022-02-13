@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.getarrays.banco.Model.Respuesta;
 import tech.getarrays.banco.entity.CuentaEntity;
-import tech.getarrays.banco.entity.UsuarioEntity;
+import tech.getarrays.banco.entity.ClientEntity;
 import tech.getarrays.banco.service.CuentaService;
 
 import javax.websocket.server.PathParam;
@@ -26,7 +26,7 @@ public class CuentaController {
     }
 
 
-    @GetMapping("/usuario/{idUsuario}/cuentas")
+    @GetMapping("/cliente/{idUsuario}/cuentas")
     //public ResponseEntity<List<CuentaEntity>> getAllCuentas (@PathParam("idUsuario")Long idUsuario) {
     public ResponseEntity<Respuesta> getAllCuentas (@PathVariable("idUsuario")Long idUsuario) {
         Respuesta<List> output = new Respuesta<>();
@@ -34,7 +34,7 @@ public class CuentaController {
         String msg=null;
         List cuentas=null;
         try {
-            cuentas = cuentaService.findCuentabyIdUsuario(idUsuario);
+            cuentas = cuentaService.findCuentabyIdClient(idUsuario);
             System.out.println(idUsuario);
             msg="0-Successful operation";
             output.setDato(cuentas);
@@ -197,17 +197,27 @@ public class CuentaController {
         HttpStatus status = HttpStatus.OK;
         String msg = null;
         CuentaEntity datos = null;
-
         try {
-            CuentaEntity delet = cuentaService.findCuentabyId(id);
-            delet.setEstado("cancelled");
-            datos = cuentaService.findCuentabyId(id);
-            datos.setEstado("cancelled");
-            //cuentaService.deleteCuenta(id);
-            msg=" 0- Cancelled account ";
-            output.setMessa(msg);
-            output.setDone(true);
-            status= HttpStatus.OK;
+    		CuentaEntity delet = cuentaService.findCuentabyId(id);
+
+        	System.out.println(delet.getSaldo());
+        	if(delet.getSaldo()>0){
+                 delet.setEstado("cancelled");
+                 datos = cuentaService.findCuentabyId(id);
+                 datos.setEstado("cancelled");
+                 //cuentaService.deleteCuenta(id);
+                 msg=" 2- You cannot cancel account if balance is more than 0 ";
+                 output.setMessa(msg);
+                 output.setDone(false);
+                 status= HttpStatus.BAD_REQUEST;
+        	}else {
+        		
+                msg=" 0- Cancelled account ";
+                output.setMessa(msg);
+                output.setDone(true);
+                status= HttpStatus.OK;
+        	}
+           
             /*msg = "0-Successfully deleted";
 
             status = HttpStatus.OK;
@@ -227,8 +237,8 @@ public class CuentaController {
         return new ResponseEntity<Respuesta>(output, status);
     }
     /*@PutMapping("/{id}/active")
-    public ResponseEntity<CuentaEntity> updateCuenta(@RequestBody UsuarioEntity usuario){
-        UsuarioEntity updateUsuario = usuarioService.updateUsuario(usuario);
+    public ResponseEntity<CuentaEntity> updateCuenta(@RequestBody ClientEntity usuario){
+        ClientEntity updateUsuario = usuarioService.updateUsuario(usuario);
         return new ResponseEntity<>(updateUsuario, HttpStatus.OK);
     }*/
 

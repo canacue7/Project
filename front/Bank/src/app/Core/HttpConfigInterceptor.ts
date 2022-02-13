@@ -17,7 +17,7 @@ export class HttpConfigInterceptor implements HttpInterceptor{
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
 
-        const token: string = this.globalService.user && this.globalService.user.jwt ? this.globalService.user.jwt: "";
+        const token: string = this.globalService.user && this.globalService.user.jwt;
         
 
         let request = req;

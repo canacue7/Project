@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.getarrays.banco.Model.Respuesta;
 import tech.getarrays.banco.entity.CuentaEntity;
 import tech.getarrays.banco.entity.OperacionesEntity;
-import tech.getarrays.banco.entity.UsuarioEntity;
+import tech.getarrays.banco.entity.ClientEntity;
 import tech.getarrays.banco.service.CuentaService;
 import tech.getarrays.banco.service.OperacionesService;
 import tech.getarrays.banco.Model.Respuesta;

@@ -22,7 +22,7 @@ public class CuentaServiceImp implements CuentaService {
         return cuentaRepo.findAll();
     }
 
-    public List<CuentaEntity> findCuentabyIdUsuario(Long id) throws Exception{return cuentaRepo.findCuentaByIdUsuario(id);}
+    public List<CuentaEntity> findCuentabyIdClient(Long id) throws Exception{return cuentaRepo.findCuentaByIdClient(id);}
 
 
     public CuentaEntity addCuenta (CuentaEntity cuenta){

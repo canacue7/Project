@@ -33,7 +33,7 @@ export class RetiroComponent implements OnInit {
     const withd = this.profileForm.value;
     console.log(accountId);
     this.operacionesService.retirSaldo(+accountId,withd).subscribe(data=>alert(data.messa));
-    this.router.navigate(["/listarCuenta",accountId]);
+    this.router.navigate(["/listarCuentas/"+accountId]);
   }
 
 }

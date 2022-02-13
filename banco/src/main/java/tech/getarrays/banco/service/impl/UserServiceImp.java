@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import tech.getarrays.banco.entity.UserEntity;
-import tech.getarrays.banco.entity.UsuarioEntity;
+import tech.getarrays.banco.entity.ClientEntity;
 import tech.getarrays.banco.exception.UserNotFoundException;
 import tech.getarrays.banco.repository.UserRepo;
 import tech.getarrays.banco.service.UserService;
@@ -32,6 +32,13 @@ public class UserServiceImp implements UserService, UserDetailsService {
        // manager.setUsuario_codigo(UUID.randomUUID().toString());
         return userRepo.save(user);
     }
+    @Override
+    public void updateUser(UserEntity user){
+    	System.out.println(user.getUserName());
+		System.out.println(user.getFirstName());
+		System.out.println(user.getLastName());
+        userRepo.updateByUserName(user.getFirstName(), user.getLastName(), user.getUserName());
+    }
 
     public List<UserEntity> get(){
         return userRepo.findAll();
@@ -46,6 +53,10 @@ public class UserServiceImp implements UserService, UserDetailsService {
 		
 		return userDetails;
 	}
+    
+    public UserEntity findByUserName(String userName) throws  Exception{
+        return userRepo.findByUserName(userName);
+    }
 
 
 }

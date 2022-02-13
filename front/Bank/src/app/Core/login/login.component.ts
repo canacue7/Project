@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
  
   //globalService:GlobalService =new GlobalService();
   @Output() login: EventEmitter<User> = new EventEmitter();
+  @Output() registro: EventEmitter<User> = new EventEmitter();
+
 
   form: FormGroup;
   

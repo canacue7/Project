@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddUsuarioComponent } from './Usuario/add-usuario/add-usuario.component';
-import { ListarUsuarioComponent } from './Usuario/listar-usuario/listar-usuario.component';
-import { DeleterUsuarioComponent } from './Usuario/deleter-usuario/deleter-usuario.component';
-import { EditUsuarioComponent } from './Usuario/edit-usuario/edit-usuario.component';
+import { AddClientComponent } from './Client/add-client/add-client.component';
+import { ListarClientComponent } from './Client/listar-client/listar-client.component';
+import { DeleterClientComponent } from './Client/deleter-client/deleter-client.component';
+import { EditClientComponent } from './Client/edit-client/edit-client.component';
 import { AddCuentaComponent } from './Cuenta/add-cuenta/add-cuenta.component';
 import { ListarCuentaComponent } from './Cuenta/listar-cuenta/listar-cuenta.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UsuarioService } from './Usuario/Services/usuario.service';
+import { ClientService } from './Client/Services/client.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ListarOperacionesComponent } from './Operaciones/listar-operaciones/listar-operaciones.component';
 import { ConsignacionComponent } from './Operaciones/consignacion/consignacion.component';
@@ -21,15 +21,16 @@ import { LoginComponent } from './Core/login/login.component';
 import { HeaderComponent } from './Core/header/header.component';
 import { HttpConfigInterceptor } from './Core/HttpConfigInterceptor';
 import { RegistrarComponent } from './user/registrar/registrar.component';
-import { EditarComponent } from './user/editar/editar.component';
+import { EditarUserComponent } from './user/editar-user/editar-user.component';
+import { NewPasswordComponent } from './user/new-password/new-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddUsuarioComponent,
-    ListarUsuarioComponent,
-    DeleterUsuarioComponent,
-    EditUsuarioComponent,
+    AddClientComponent,
+    ListarClientComponent,
+    DeleterClientComponent,
+    EditClientComponent,
     AddCuentaComponent,
     ListarCuentaComponent,
     ListarOperacionesComponent,
@@ -40,7 +41,8 @@ import { EditarComponent } from './user/editar/editar.component';
     LoginComponent,
     HeaderComponent,
     RegistrarComponent,
-    EditarComponent
+    EditarUserComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,7 @@ import { EditarComponent } from './user/editar/editar.component';
     ReactiveFormsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS,useClass: HttpConfigInterceptor, multi:true}],
-  //providers: [UsuarioService],
+  //providers: [ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

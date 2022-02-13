@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.swagger.annotations.ApiOperation;
 import tech.getarrays.banco.Model.Respuesta;
+import tech.getarrays.banco.Model.UserDto;
 import tech.getarrays.banco.entity.UserEntity;
 import tech.getarrays.banco.service.UserService;
 import tech.getarrays.banco.util.JwtUtils;
@@ -97,17 +99,7 @@ public class UserController {
 			
 			String log = msg + e.getLocalizedMessage();
 			logger.error(log); 
-			
-			
-//		}catch (AuthenticationException e) {
-//
-//            msg = "Usuario o clave incorrectos.";
-//            status = HttpStatus.FORBIDDEN;
-//            output.setMessa(msg + e);
-//            output.setDone(false);
-//
-//            String log = msg + e.getLocalizedMessage();           
-//            logger.error(log);   	
+			   	
 		} catch (Exception e) {
 			
 			msg = "Looks like something went wrong. contact support";
@@ -137,6 +129,42 @@ public class UserController {
 
 			data = userService.get();
 			String msg = "It found " + data.size() + " users.";
+			
+			output.setMessa(msg);
+			output.setDone(true);
+			output.setDato(data);
+			status = HttpStatus.OK;
+			
+		} catch (Exception e) {
+			
+			String msg = "Something has failed. Please contact suuport.";
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			output.setMessa(msg);
+			output.setDone(false);
+			
+			String log = "End point GET/user has failed. " + e.getLocalizedMessage();			
+			logger.error(log);
+		}
+
+		return new ResponseEntity<>(output, status);
+	}
+	/**
+	 * get user by user name.
+	 * 
+	 * @return @List<UserVO>
+	 */
+	@ApiOperation(value = "user by user name.", response = ResponseEntity.class)
+	@GetMapping("/{userName}")
+	public ResponseEntity<Respuesta<UserEntity>> getByUserName(@PathVariable("userName") String userName) {
+		
+		Respuesta<UserEntity> output = new Respuesta<>();
+		HttpStatus status = null;
+		UserEntity data = null; 
+
+		try {
+
+			data = userService.findByUserName(userName);
+			String msg = "It found  user "+data.getUserName();
 			
 			output.setMessa(msg);
 			output.setDone(true);
@@ -187,6 +215,93 @@ public class UserController {
 
 		return new ResponseEntity<>(output, status);
 	}
+	
+	 /* Update users.
+	 * 
+	 * @return @List<UserVO>
+	 */
+	@ApiOperation(value = "Update users", response = ResponseEntity.class)
+	@PutMapping
+	public ResponseEntity<Respuesta<UserEntity>> update(@RequestBody UserEntity users) {
+		
+		Respuesta<UserEntity> output = new Respuesta<>();
+		HttpStatus status = null;
+		UserEntity data = null; 
+
+		try {
+			System.out.println(users.getUserName());
+			System.out.println(users.getFirstName());
+			System.out.println(users.getLastName());
+
+			userService.updateUser(users);
+			String msg = "Se ha actualizado correctamente";
+			
+			output.setMessa(msg);
+			output.setDone(true);
+			output.setDato(data);
+			status = HttpStatus.OK;
+			
+		} catch (Exception e) {
+			
+			String msg = "Something has failed. Please contact suuport.";
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			output.setMessa(msg);
+			output.setDone(false);
+			
+			String log = "End point PUT/users has failed. " + e.getLocalizedMessage();			
+			logger.error(log);
+		}
+
+		return new ResponseEntity<>(output, status);
+	}
+	
+	
+	//Cambiar contraseña
+	
+	@ApiOperation(value = "reset password", response = ResponseEntity.class)
+	@PutMapping("/newpassword")
+	public ResponseEntity<Respuesta<UserEntity>> resetPassword(@RequestBody UserDto userDto){
+		Respuesta<UserEntity> output = new Respuesta<>();
+		UserEntity user = null;
+		String msg= null;
+		HttpStatus status = null;
+		System.out.println(user);
+
+		try {
+			System.out.println(user);
+			user = userService.findByUserName(userDto.getUser().getUserName());
+			if(user!=null) {
+				authenticationManager.authenticate(
+						new UsernamePasswordAuthenticationToken(userDto.getUser().getUserName(), userDto.getUser().getPassword())
+						);
+				user.setPassword(bCryptPasswordEncoder.encode(userDto.getNewPassword()));
+				//user.setJwt(jwtUtils.generateToken(user.getUserName()));
+				user= userService.addUser(user);
+				user.setPassword(null);
+				msg = "0 - Password changed";
+				System.out.println(userDto);
+			}else {
+				msg = "1 - User not found";
+				status = HttpStatus.NOT_MODIFIED;
+			}
+			output.setMessa(msg);
+			output.setDone(true);
+			output.setDato(user);
+			status = HttpStatus.OK;
+		}catch(AuthenticationException e){
+			msg="Password doesn't match with previous one";
+			status=HttpStatus.FORBIDDEN;
+			output.setMessa(msg);
+			output.setDone(false);
+		}catch(Exception e) {
+			msg="Error. Contact support";
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			output.setMessa(msg);
+			output.setDone(false);
+		}
+		
+		return new ResponseEntity<>(output,status);
+}
 	
 	/**
 	 * Delete user.

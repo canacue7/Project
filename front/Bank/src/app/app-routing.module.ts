@@ -8,24 +8,26 @@ import { ConsignacionComponent } from './Operaciones/consignacion/consignacion.c
 import { ListarOperacionesComponent } from './Operaciones/listar-operaciones/listar-operaciones.component';
 import { RetiroComponent } from './Operaciones/retiro/retiro.component';
 import { TransferenciaComponent } from './Operaciones/transferencia/transferencia.component';
+import { EditarUserComponent } from './user/editar-user/editar-user.component';
+import { NewPasswordComponent } from './user/new-password/new-password.component';
 import { RegistrarComponent } from './user/registrar/registrar.component';
-import { AddUsuarioComponent } from './Usuario/add-usuario/add-usuario.component';
-import { DeleterUsuarioComponent } from './Usuario/deleter-usuario/deleter-usuario.component';
-import { EditUsuarioComponent } from './Usuario/edit-usuario/edit-usuario.component';
-import { ListarUsuarioComponent } from './Usuario/listar-usuario/listar-usuario.component';
+import { AddClientComponent } from './Client/add-client/add-client.component';
+import { EditClientComponent } from './Client/edit-client/edit-client.component';
+import { ListarClientComponent } from './Client/listar-client/listar-client.component';
+import { DeleterClientComponent } from './Client/deleter-client/deleter-client.component';
 
 const routes: Routes = [
   {path:'', component:LoginComponent},
-  // listar usuarios
-  {path:'listar', component:ListarUsuarioComponent},
-  // Buscar usuario por id
-  // {path:'usuarioid/:id',component:EditUsuarioComponent},
-  // agregar usuario
-  {path:'add', component:AddUsuarioComponent},
-  // editar usuario
-  {path:'edit/:id', component:EditUsuarioComponent},
-  // eliminar usuario
-  {path:'delete', component:DeleterUsuarioComponent},
+  // listar clientes
+  {path:'listar', component:ListarClientComponent},
+  // Buscar cliente por id
+  // {path:'clienteid/:id',component:EditClienteComponent},
+  // agregar cliente
+  {path:'add', component:AddClientComponent},
+  // editar cliente
+  {path:'edit/:id', component:EditClientComponent},
+  // eliminar cliente
+  {path:'delete', component:DeleterClientComponent},
   // listar cuentas
   {path: 'listarCuentas/:id', component:ListarCuentaComponent},
   // nueva cuenta agregar
@@ -44,7 +46,11 @@ const routes: Routes = [
   //Login
   {path: 'login', component:LoginComponent},
   //Singup
-  {path: 'registrar', component:RegistrarComponent}
+  {path: 'registrar', component:RegistrarComponent},
+  //Editar usuario
+  {path: 'editarUser', component:EditarUserComponent},
+  //Editar usuario
+  {path: 'editPassword', component:NewPasswordComponent}
 
 ];
 

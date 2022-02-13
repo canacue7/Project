@@ -10,7 +10,7 @@ public interface CuentaRepo extends JpaRepository<CuentaEntity, Long> {
 
 
    @Query(value="select * from cuenta_entity where (id_usuario=?)", nativeQuery = true)
-   List<CuentaEntity> findCuentaByIdUsuario(Long num_cuenta);
+   List<CuentaEntity> findCuentaByIdClient(Long num_cuenta);
 
  /*  @Query(value="SELECT CURDATE()", nativeQuery = true)
    public cuenta getFecha(Date fecha_transfer);*/

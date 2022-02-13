@@ -22,16 +22,16 @@
                         <td>{{cuenta.fecha_crea}}</td>
                         <td>{{cuenta.estado}}</td>
                         <td>{{cuenta.tipo_cuenta}}</td>
-                        <td>{{cuenta.saldo}}</td>
+                        <td>${{cuenta.saldo}}</td>
                         <td>{{cuenta.id_usuario}}</td>
                         <td>
-                            <button (click)="inactive(cuenta, cuenta.id)" class="btn btn-warning">activate/Inactivate</button>
-                            <button (click)="Delete(cuenta)" class="btn btn-danger" style="margin: 10px;">Delete</button>
-                            <button (click)="Operaciones(cuenta.id)" class="btn btn-primary" style="margin: 10px;">Operations</button>
-                            <button (click)="Retirar(cuenta.id) " class="btn btn-dark"  style="margin-left: 150px;">Withdraw</button>
-                            <button (click)="Consignar(cuenta.id)" class="btn btn-dark" style="margin: 10px;">Deposit</button>
-                            <button (click)='Transfer(cuenta.id)' class="btn btn-dark" style="margin: 10px;">Transfer</button>
-
+                                <button (click)="inactive(cuenta, cuenta.id)" class="btn btn-outline-warning">activate/Inactivate</button>
+                                <button (click)="Delete(cuenta)" class="btn btn-outline-danger" style="margin: 5px;">Delete</button>
+                                <button (click)="Operaciones(cuenta.id)" class="btn btn-outline-primary" style="margin: 5px;">Operations</button>
+                                <button (click)="Retirar(cuenta.id) " class="btn btn-outline-dark"  style="margin-left: 5px;">Withdraw</button>
+                                <button (click)="Consignar(cuenta.id)" class="btn btn-outline-dark" style="margin: 5px;">Deposit</button>
+                                <button (click)='Transfer(cuenta.id)' class="btn btn-outline-dark" style="margin: 5px;">Transfer</button>
+                            
                         </td>
                     </tr>
                 </tbody>
