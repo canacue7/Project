@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OperacionesService } from 'src/app/Operaciones/Services/operaciones.service';
+import Swal from 'sweetalert2';
+import {​​​​​​Location}​​​​​​ from '@angular/common'
+
 
 @Component({
   selector: 'app-transferencia',
@@ -14,19 +17,23 @@ export class TransferenciaComponent implements OnInit {
     id_cuenta_destino: new FormControl('')
   })
 
-  constructor(private operacionesService: OperacionesService,private route: ActivatedRoute,  private router:Router) { }
+  constructor(private operacionesService: OperacionesService,
+    private location: Location,private route: ActivatedRoute,  private router:Router) { }
 
   ngOnInit(): void {
   }
 
+  Return(){
+    this.location.back();
+  }
   transferir(){
     const accountId = this.route.snapshot.paramMap.get('id');
     const accountDest=this.profileForm.getRawValue().id_cuenta_destino;
     const transf = this.profileForm.value;
     this.operacionesService.trSaldo(+accountId,+accountDest,transf).subscribe(data=>{
-      alert(data.messa)
+      Swal.fire('Success!', data.messa, 'success');
     }, err=>{
-      alert(err.error.messa)
+      Swal.fire('Error!', err.error.messa, 'error');
     });
     this.router.navigate(["/listarCuenta",accountId]);
   }

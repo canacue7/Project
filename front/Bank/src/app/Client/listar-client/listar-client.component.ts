@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Cuenta } from 'src/app/Cuenta/Models/Cuenta';
 import { Client } from 'src/app/Client/Models/Client';
 import { ClientService } from 'src/app/Client/Services/client.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -42,10 +43,10 @@ export class ListarClientComponent implements OnInit {
     // this.clientService.deleteClient(client.id).subscribe(data=>{this.clients.filter(p=>p!==client);
     // alert("Client eliminado");}, error=>alert("User has active accounts"))
     this.clientService.deleteClient(client.id).subscribe(data=>{
-      alert(data.messa);
-    },err=>{
-      console.log(err.error.messa);
-      alert(err.error.messa);
+      Swal.fire('Success', data.messa, 'info');
+
+    }, error =>{
+    Swal.fire('Error!', error.messa, 'error');
   })
   }
 

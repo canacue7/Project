@@ -37,10 +37,12 @@ public class ClientServiceImp implements ClientService {
 
 
     public ClientEntity findClientById(Long id) throws  Exception{
-        return clientRepo.findClientById(id).orElseThrow(() -> new UserNotFoundException("Client with id: " + id +" was not found"));
+        return clientRepo.findClientById(id)
+        		.orElseThrow(() -> new UserNotFoundException("Client with id: " + id +" was not found"));
     }
 
-    public void deleteClient(Long id){clientRepo.deleteClientById(id); }
+    public boolean deleteClient(Long id){clientRepo.deleteClientById(id);
+    return true;}
 
 }
 

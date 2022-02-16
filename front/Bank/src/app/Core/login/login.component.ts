@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/Shared/Services/global.service';
 import { User } from 'src/app/user/Models/User';
 import { UserService } from 'src/app/user/Services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -44,12 +45,12 @@ export class LoginComponent implements OnInit {
   signIn() {
     const userName = this.form.controls['userName'].value;
     const password = this.form.controls['password'].value;
+    console.log("el introducido es: "+userName)
     if (userName && password) {
       const user: User = new User();
       //const user: User;
       user.userName = userName;
       user.password = password;
-
       console.log(user);
       this.userService.login(user).subscribe( resp => {
         if (resp.done) {
@@ -60,10 +61,11 @@ export class LoginComponent implements OnInit {
 
         }
       }, error => {
-        alert(error.error.messa);
+        Swal.fire('Error!', error.error.messa, 'error');
       });
     } else {
-      alert('Escriba usuario y contraseña');
+      Swal.fire( 'Oops!', 'Please introduce user and password', 'info');
+      // alert('Escriba usuario y contraseña');
     }
 
   }

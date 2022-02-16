@@ -3,6 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cuenta } from 'src/app/Cuenta/Models/Cuenta';
 import { Operaciones } from 'src/app/Operaciones/Models/Operaciones';
 import { CuentaService } from 'src/app/Cuenta/Services/cuenta.service';
+import Swal from 'sweetalert2';
+import {​​​​​​Location}​​​​​​ from '@angular/common'
+import { GlobalService } from 'src/app/Shared/Services/global.service';
+
 
 @Component({
   selector: 'app-listar-cuenta',
@@ -13,7 +17,10 @@ export class ListarCuentaComponent implements OnInit {
   public ops:Operaciones[];
 
   cuentas:Cuenta[];
-  constructor(private cuentaService: CuentaService,private route: ActivatedRoute,  private router:Router) { }
+  constructor(private cuentaService: CuentaService,private route: ActivatedRoute,
+    private location: Location,  private router:Router,
+    public globalService:GlobalService) { }
+  public userId= this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id'); 
@@ -21,6 +28,10 @@ export class ListarCuentaComponent implements OnInit {
     this.cuentaService.getallCuentas(+userId).subscribe(data=>{
       console.log(data.done);
       this.cuentas=data.dato})
+  }
+
+  Return(){
+      this.location.back();
   }
 
   Operaciones(accountId:number){
@@ -57,22 +68,36 @@ export class ListarCuentaComponent implements OnInit {
   inactive(cuenta:Cuenta, cuentaId:number){
     console.log(cuenta.estado)
     if(cuenta.estado.toLowerCase()=="activo"){
-      console.log("se hizo el inative");
+      console.log("se hizo el incative");
     this.cuentaService.inactiveCuenta(cuenta,cuentaId).subscribe(data=>{
-      alert(data.messa)
+      Swal.fire('Success', data.messa, 'info');
     })}else{
       console.log("se hizo el active");
       this.cuentaService.activeCuenta(cuenta,cuentaId).subscribe(data=>{
-        alert(data.messa)
+        Swal.fire('Success', data.messa, 'info');
       })
     }
   }
 
   Delete(cuenta:Cuenta){
-    this.cuentaService.deleteCuenta(cuenta.id).subscribe(data=>{
-      alert(data.messa);
-    },err=>{
-      alert(err.error.messa)
+    Swal.fire({
+      title: 'Do you really want to cancel this account?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Proceed',
+      denyButtonText: `Abort`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.cuentaService.deleteCuenta(cuenta.id).subscribe(data=>{        
+          Swal.fire('Account cancelled', data.messa, 'success')
+        },error=>{
+          Swal.fire('Error!', error.error.messa, 'error')
+
+        });
+      } else if (result.isDenied) {
+        Swal.fire('Account not cancelled', '', 'info');
+      }
     })
   }
 }

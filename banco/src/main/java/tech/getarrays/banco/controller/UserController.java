@@ -93,7 +93,7 @@ public class UserController {
 			
 			msg = "Incorrect user or password.";
 			status = HttpStatus.FORBIDDEN;
-			output.setMessa(msg + e);
+			output.setMessa(msg);
 			output.setDone(false);
 			System.out.print(e);
 			

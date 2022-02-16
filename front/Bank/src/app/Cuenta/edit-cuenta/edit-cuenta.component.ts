@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cuenta } from 'src/app/Cuenta/Models/Cuenta';
 import { CuentaService } from 'src/app/Cuenta/Services/cuenta.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-cuenta',
@@ -22,9 +23,29 @@ export class EditCuentaComponent implements OnInit {
   }
 
   Actualizar(cuenta:Cuenta){
-    this.cuentaService.updateCuenta(cuenta).subscribe(data=>{this.cuenta=data.dato;
-    alert(data.messa)});
-    this.router.navigate(['/listar']);
+    
+
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success')
+        this.cuentaService.updateCuenta(cuenta).subscribe(data=>{this.cuenta=data.dato;
+          alert(data.messa)
+        }, error =>{
+          Swal.fire('Error!', error.messa, 'error');
+        });
+          this.router.navigate(['/listar/'+cuenta.id_usuario]);
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+          this.router.navigate(['/listar/'+cuenta.id_usuario]);
+      }
+    })
 
   }
 

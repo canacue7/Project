@@ -22,7 +22,7 @@ public interface ClientService {
 
     public ClientEntity findClientById(Long id) throws Exception;
 
-    public void deleteClient(Long id);
+    public boolean deleteClient(Long id);
 
 }
 
